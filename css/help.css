@@ -1,0 +1,162 @@
+body {
+    font-family: "Inter", sans-serif;
+    margin: 0px;
+    background-color: #f6f7f8;
+}
+
+.help-page {
+    display: flex;
+    justify-content: center;
+    width: calc(100vw - 232px);
+    height: calc(100vh - 96px);
+    background-color: #f6f7f8;
+    scrollbar-width: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 16px;
+}
+
+.scroll-container {
+    overflow-y: auto;
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+a {
+    color: #29ABE2;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.join-blue {
+    color: #29ABE2;
+}
+
+.help-content {
+    margin-top: 110px;
+    margin-bottom: 80px;
+    margin-left: 96px;
+    margin-right: 96px;
+    max-width: 1014px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.back {
+    width: 37px;
+    height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back:hover {
+    background-color: #efefef;
+    border-radius: 19px;
+    cursor: pointer;
+}
+
+.back:hover img {
+    transform: scale(1.1);
+}
+
+.textfield {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+h1 {
+    font-size: 61px;
+    margin: 0;
+}
+
+h2 {
+    font-size: 27px;
+    font-weight: bold;
+    margin: 0;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: 700px;
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.step {
+    display: flex;
+    gap: 30px;
+}
+
+.counter {
+    font-size: 27px;
+    font-weight: 700px;
+}
+
+@media(max-width: 1200px) {
+    .back {
+        position: unset;
+    }
+}
+
+@media(max-width: 920px) {
+    .help-content {
+        margin-left: 56px;
+        margin-right: 56px;
+    }
+
+    .back {
+        position: unset;
+        right: 56px;
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media(max-width: 680px) {
+    .help-page {
+        width: 100%;
+    }
+
+    .help-content {
+        margin-top: 48px;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    .back {
+        position: unset;
+        width: 32px;
+    }
+}

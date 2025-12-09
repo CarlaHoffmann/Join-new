@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join</title>
+
+    <link rel="icon" type="image/svg+xml" href="./assets/img/general/logo_favicon.svg">
+    <link rel="stylesheet" href="./css/colors.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/loginMedia.css">
+    <link rel="stylesheet" href="./css/mediaQuery.css">
+    <link rel="stylesheet" href="./css/logo-animation.css">
+
+    <script defer src="./js/login.js"></script>
+
+</head>
+
+<body>
+
+    <div class="logIn-page">
+        <div id="overlay">
+            <img src="./assets/img/login/login-logo.svg" alt="Logo" id="animatedLogo" class="animate">
+        </div>
+        <img src="" alt="Header Logo" id="headerLogo" class="headerLogo">
+
+        <div id="signup-linking-desktop" class="signup-linking">
+            <span>Not a join user?</span>
+            <a href="./signUp.html">
+                <p class="button-login-blue button-p">Sign up</p>
+            </a>
+        </div>
+
+        <div class="login-content">
+            <div class="form-container">
+                <div class="form-wrapper">
+                    <div class="header_LogIn">
+                        <h1 class="headline_logIn">Log in</h1>
+                        <div class="vector_login"></div>
+                    </div>
+
+                    <form class="form-content">
+                        <div class="flex-column-center gap-20">
+                            <div class="logIn-formfields">
+                                <div>
+                                    <div id="emailContainer" class="input-container">
+                                        <input id="email" placeholder="Email" type="email"
+                                            class="input-with-image b-img-email" onclick="changeEmail()" required>
+                                        <img src="./assets/img/general/mail.svg" alt="Email Icon">
+                                    </div>
+                                    <div id="emailError" class="error-message"></div>
+                                </div>
+
+                                <div>
+                                    <div id="passwordButten" class="input-container">
+                                        <input id="password" placeholder="Password" type="password"
+                                            class="input-with-image" required oninput="handlePasswordInput()">
+                                        <img src="./assets/img/login/lock.png" alt="Lock Icon" id="passwordLock"
+                                            class="password_lock">
+                                        <a role="button" class="password_butten hidden" id="visibilityButton"
+                                            onclick="togglePasswordVisibility()">
+                                            <img src="./assets/img/login/visibility_off.svg" alt="Hide Password"
+                                                id="notSee">
+                                            <img src="./assets/img/login/visibility.svg" alt="Show Password" id="see"
+                                                class="hidden">
+                                        </a>
+                                    </div>
+                                    <div id="passwordError"></div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="accept_box">
+                                <div class="checkbox-container" onclick="toggleCheckbox(this)">
+                                    <img src="./assets/img/general/check_button.svg" alt="Checkbox"
+                                        class="checkbox-icon">
+                                </div>
+                                <span class="gray">Remember me</span>
+                            </div>
+                        </div>
+
+
+                        <div class="gap logIn-btns">
+                            <button onclick="handleLoginClick(event)" id="login_button"
+                                class="button-login-blue button-p text_login_btn mobile_login_btn hover">Log in</button>
+                            <div id="guest-login">
+                                <p onclick="guestLogin()"
+                                    class="button-login-white button-p text_login_btn mobile_login_btn">
+                                    Guest Log in</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="signup-linking-mobile" class="signup-linking">
+                <span>Not a join user?</span>
+                <a href="./signUp.html">
+                    <p class="button-login-blue button-p">Sign up</p>
+                </a>
+            </div>
+
+            <div id="successOverlay" class="overlay"></div>
+            <div id="successMessage" class="login_successful" style="display: none;">
+                You Signed Up Successfully
+            </div>
+
+            <footer class="login-footer gap gray">
+                <a href="./privacyPolicy.html" id="privacyPolicy" class="pointer-color link_visited">Privacy policy</a>
+                <a href="./legalNotice.html" id="legalNotice" class="pointer-color link_visited">Legal notice</a>
+            </footer>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

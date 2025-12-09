@@ -1,0 +1,286 @@
+#addContactBoxOverlay,
+#editContactBoxOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#editContactBox.show,
+#addContactBox.show {
+    animation: slide 0.65s ease forwards;
+}
+
+@keyframes slide {
+    from {
+        left: 100vw;
+    }
+
+    to {
+        left: 0;
+    }
+}
+
+#addContactBox,
+#editContactBox {
+    width: 80%;
+    height: 594px;
+    background: white;
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    position: relative;
+}
+
+#addContactBoxHeader,
+#editContactBoxHeader {
+    height: 100%;
+    background: #2A3647;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+    color: white;
+    padding: 66px 48px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    top: 152px;
+}
+
+.contactHeaderText {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#addContactHeadline,
+#editContactHeadline {
+    text-wrap: nowrap;
+}
+
+.contactHeaderText p {
+    font-size: 27px;
+}
+
+.dividerOverlay {
+    width: 90px;
+}
+
+.addContactInfoOverlay,
+.editContactInfoOverlay {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 54px;
+}
+
+.imgBox {
+    height: 120px;
+    display: flex;
+    justify-content: center;
+}
+
+.overlay-contact-img {
+    font-size: 47px;
+}
+
+#addContactForm,
+#editContactForm {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+}
+
+.input-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 422px;
+    height: 202px;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #D1D1D1;
+    padding: 12px 21px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.input-container:focus-within {
+    border-color: #29ABE2
+}
+
+.input-with-image {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 16px;
+    background-color: var(--white);
+}
+
+.input-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.add-form-buttons,
+.edit-form-buttons {
+    display: flex;
+    gap: 24px;
+}
+
+.form-button {
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: var(--lightblue);
+    color: var(--white);
+    text-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.bottom-buttons {
+    display: flex;
+    justify-content: end;
+    gap: 16px;
+}
+
+.clear-button {
+    font-size: 21px;
+    border: 1px solid #2A3647;
+    background-color: #F6F7F8;
+    padding: 16px;
+    display: flex;
+    gap: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.clear-button:hover {
+    border-color: #29ABE2;
+    color: #29ABE2;
+    outline: 2px solid #29ABE2;
+    outline-offset: -2px;
+}
+
+.clear-button .icon-normal {
+    display: inline;
+}
+
+.clear-button .icon-hover {
+    display: none;
+}
+
+.clear-button:hover .icon-normal {
+    display: none;
+}
+
+.clear-button:hover .icon-hover {
+    display: inline;
+}
+
+.submit-button {
+    font-size: 21px;
+    font-weight: 700;
+    background-color: #2A3647;
+    color: rgb(255, 255, 255);
+    padding: 16px;
+    display: flex;
+    gap: 4px;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #29ABE2;
+}
+
+.saveButton {
+    background: #2A3647;
+    color: white;
+}
+
+.desktop-only {
+    display: flex;
+}
+
+.mobile-only {
+    display: none;
+}
+
+.close-button-box {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    position: absolute;
+    z-index: 13;
+    top: 48px;
+    right: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-button {
+    border: none;
+    font-size: 24px;
+    color: #2A3647;
+}
+
+.close-button-box:hover {
+    background: #D1D1D1;
+    cursor: pointer;
+}
+
+.hover-button:hover {
+    cursor: pointer;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.contact-added-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 13;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-added-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2A3647;
+    color: white;
+    border-radius: 20px;
+    font-size: 20px;
+    text-align: center;
+    width: 326px;
+    height: 74px;
+}

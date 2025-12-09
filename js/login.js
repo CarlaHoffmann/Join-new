@@ -1,0 +1,377 @@
+/**
+ * Base URL for the Firebase Realtime Database.
+ * @constant {string}
+ */
+const log_base_url = "https://join-eaf29-default-rtdb.europe-west1.firebasedatabase.app"
+
+/**
+ * Initializes the animation for the window based on screen size.
+ */
+function animationWindow() {
+    const elements = getAnimationElements();
+    if (!elementsAreValid(elements)) return;
+
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+        handleMobileAnimation(elements);
+    } else {
+        handleDesktopAnimation(elements);
+    }
+}
+
+/**
+ * Retrieves the necessary DOM elements for the animation.
+ * @returns {Object} - An object containing overlay, animatedLogo, and headerLogo elements.
+ */
+function getAnimationElements() {
+    return {
+        overlay: document.getElementById('overlay'),
+        animatedLogo: document.getElementById('animatedLogo'),
+        headerLogo: document.getElementById('headerLogo'),
+    };
+}
+
+/**
+ * Validates the presence of all required elements.
+ * @param {Object} elements - The DOM elements to validate.
+ * @returns {boolean} - True if all elements are valid, otherwise false.
+ */
+function elementsAreValid(elements) {
+    return Object.values(elements).every((el) => el !== null);
+}
+
+/**
+ * Handles the animation behavior for mobile devices.
+ * @param {Object} elements - The DOM elements for the animation.
+ */
+function handleMobileAnimation({ overlay, animatedLogo, headerLogo }) {
+    animatedLogo.src = './assets/img/general/logo.svg';
+
+    animatedLogo.addEventListener('animationend', () => {
+        animatedLogo.src = './assets/img/login/login-logo.svg';
+        headerLogo.src = animatedLogo.src;
+        headerLogo.style.display = 'block';
+        overlay.style.display = 'none';
+    });
+}
+
+/**
+ * Handles the animation behavior for desktop devices.
+ * @param {Object} elements - The DOM elements for the animation.
+ */
+function handleDesktopAnimation({ overlay, animatedLogo, headerLogo }) {
+    animatedLogo.addEventListener('animationend', () => {
+        overlay.style.display = 'none';
+        headerLogo.src = animatedLogo.src;
+        headerLogo.style.display = 'block';
+    });
+}
+
+
+// Call the animation function when the page is loaded
+document.addEventListener('DOMContentLoaded', animationWindow);
+
+/**
+ * Toggles the state of a checkbox by updating its icon and associated data attribute.
+ * 
+ * - Changes the `src` attribute of the checkbox icon based on the current state.
+ * - Updates the `data-checked` attribute to reflect the checkbox's state.
+ * 
+ * @function toggleCheckbox
+ * @param {Element} element - The checkbox container element that contains the icon to toggle.
+ * @returns {void}
+ */
+function toggleCheckbox(element) {
+    const img = element.querySelector('.checkbox-icon');
+    const isChecked = img.getAttribute('src') === './assets/img/general/checked_button.svg';
+
+    // Toggle Zustand
+    if (isChecked) {
+        img.setAttribute('src', './assets/img/general/check_button.svg');
+        element.dataset.checked = "false";
+    } else {
+        img.setAttribute('src', './assets/img/general/checked_button.svg');
+        element.dataset.checked = "true";
+    }
+}
+
+/**
+ * Handles the login button click event, preventing default form submission and initiating login logic.
+ * @function handleLoginClick
+ * @param {Event} event - The click event triggered by the login button.
+ * @returns {void}
+ */
+function handleLoginClick(event) {
+    event.preventDefault(); 
+    saveCredentials();      
+    existingMailLogIn();
+}
+
+/**
+ * Handles the login process for an existing user.
+ * Loads users, checks credentials, and manages the login flow.
+ * @async
+ * @function
+ * @throws {Error} If there's an error during the login process
+ */
+async function existingMailLogIn() {
+    try {
+        const users = await loadUsers();
+        const mailIsTrue = validateEmail();
+        if (!mailIsTrue) {
+            return;
+        }
+        const user = findUserByEmail(users);
+
+        if (user) {
+            await handleUserLogin(user);
+        } else {
+            showEmailError();
+        }
+    } catch (error) {
+    }
+}
+
+/**
+ * Validates the email address entered in the input field with the id "email".
+ *
+ * The function checks if the input is non-empty and matches a basic email pattern.
+ * If the email is valid, it clears any displayed error messages.
+ * If the email is invalid or empty, it displays an error message.
+ *
+ * @returns {boolean} Returns true if the email is valid, otherwise false.
+ */
+function validateEmail() {
+    const emailInput = document.getElementById("email").value; // Get the value, not the element
+    let test = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput);
+
+    if (emailInput !== '' && test) {
+        clearEmailError();
+        return true;
+    } else {
+        showEmailError();
+        return false;
+    }
+}
+
+/**
+ * Retrieves login credentials from the input fields.
+ * @function
+ * @returns {{mail: string, password: string}} An object containing the email and password
+ */
+function getLoginCredentials() {
+    const mail = document.getElementById('email').value.toLowerCase();
+    const password = document.getElementById('password').value;
+    return { mail, password };
+}
+
+/**
+ * Finds a user by their email address in the users array.
+ * @function
+ * @param {Array} users - The array of user objects
+ * @param {string} email - The email address to search for
+ * @returns {Object|undefined} The user object if found, undefined otherwise
+ */
+function findUserByEmail(users) {
+    const email = document.getElementById("email").value;
+    return users.find(u => u.mail === email);
+}
+
+function showEmailError() {
+    const errorContainer = document.getElementById("emailError");
+    const emailError = `<span class="error-message">Check your email. Please try again.</span>`;
+    errorContainer.innerHTML = emailError;
+}
+
+function clearEmailError() {
+    const errorContainer = document.getElementById("emailError");
+    errorContainer.innerHTML = '';
+}
+
+/**
+ * Handles the login process for a specific user.
+ * Checks the password, saves the user if correct, and manages redirection or error display.
+ * @async
+ * @function
+ * @param {Object} user - The user object
+ * @param {string} password - The password to check
+ */
+async function handleUserLogin(user) {
+    const passwordInput = document.getElementById("password").value;
+    const errorContainer = document.getElementById("passwordError");
+    const passwordError = `<span class="error-message">Check your password. Please try again.</span>`;
+    if (user.password === passwordInput) {
+        await saveUser(user.name, user.mail);
+        redirectToSummary();
+    } else {
+        errorContainer.innerHTML = passwordError;
+    }
+}
+
+/**
+ * Redirects the user to the summary page.
+ * 
+ * @function redirectToSummary
+ * @returns {void}
+ */
+function redirectToSummary() {
+    window.location.href = './summary.html';
+}
+
+/**
+ * This asynchronous function loads all users from Firebase.
+ * @returns {Array<Object>} An array of user objects containing name, email, and password.
+ */
+async function loadUsers() {
+    try {
+        const response = await fetch(`${log_base_url}/users.json`);
+        const users = await response.json();
+
+        const usersArray = Object.values(users).map(userData => ({ name: userData.name, mail: userData.mail, password: userData.password }));
+        return usersArray;
+    } catch (error) {
+        return [];
+    }
+}
+
+/**
+ * This asynchronous function saves the logged-in user's data to Firebase.
+ * @param {string} name - The name of the logged-in user.
+ * @param {string} mail - The email of the logged-in user.
+ */
+async function saveUser(name, mail) {
+    try {
+        let response = await fetch(log_base_url + "/loggedIn/" + ".json", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: name })
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        let result = await response.json();
+    } catch (error) {
+    }
+}
+
+/**
+ * Logs in a guest user by sending a "Guest" user entry to the database and redirects to the summary page.
+ * 
+ * @async
+ * @function guestLogin
+ * @returns {Promise<void>}
+ * 
+ * @description
+ * - Sends a `PUT` request to update the "loggedIn" entry with the guest user's information.
+ * - Redirects to the summary page (`summary.html`) upon successful request completion.
+ * - Handles errors silently without displaying them to the user.
+ */
+async function guestLogin() {
+    try {
+        let response = await fetch(log_base_url + "/loggedIn/" + ".json", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: "Guest" })
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        let result = await response.json();
+    } catch (error) {
+    }
+    window.location.href = './summary.html';
+}
+
+/**
+ * This function changes the appearance of the email input field when focused.
+ */
+function changeEmail() {
+    document.getElementById('emailContainer').classList.add('password_container_border');
+    document.getElementById('passwordButten').classList.remove('password_container_border');
+}
+
+/**
+ * Handles the password input field's state, toggling the lock icon and visibility button based on the input value.
+ * 
+ * @function handlePasswordInput
+ * @returns {void}
+ * 
+ * @description
+ * - Hides the lock icon and shows the visibility toggle button when the password input field is not empty.
+ * - Displays the lock icon and hides the visibility toggle button when the password input field is empty.
+ */
+function handlePasswordInput() {
+    const passwordInput = document.getElementById("password");
+    const lockIcon = document.getElementById("passwordLock");
+    const visibilityButton = document.getElementById("visibilityButton");
+
+    if (passwordInput.value.trim() !== "") {
+        lockIcon.style.display = "none";
+        visibilityButton.classList.remove("hidden");
+    } else {
+        lockIcon.style.display = "block";
+        visibilityButton.classList.add("hidden");
+    }
+}
+
+/**
+ * Toggles the visibility of the password field and updates the visibility icons.
+ * 
+ * @function togglePasswordVisibility
+ * @returns {void}
+ * 
+ * @description
+ * - Changes the `type` attribute of the password input field between "password" and "text".
+ * - Toggles the visibility of the "not see" and "see" icons accordingly.
+ */
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("password");
+    const notSeeIcon = document.getElementById("notSee");
+    const seeIcon = document.getElementById("see");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        notSeeIcon.classList.add("hidden");
+        seeIcon.classList.remove("hidden");
+    } else {
+        passwordInput.type = "password";
+        notSeeIcon.classList.remove("hidden");
+        seeIcon.classList.add("hidden");
+    }
+}
+
+/**
+ * Saves the login credentials to local storage if "Remember Me" is checked.
+ * @function saveCredentials
+ */
+function saveCredentials() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const rememberMe = document.querySelector('.checkbox-container').dataset.checked === "true";
+
+    if (rememberMe) {
+        localStorage.setItem("rememberMe", JSON.stringify({ email, password }));
+    } else {
+        localStorage.removeItem("rememberMe");
+    }
+}
+
+/**
+ * Loads and autofills login credentials from local storage if "Remember Me" was previously selected.
+ * @function loadCredentials
+ */
+function loadCredentials() {
+    const savedCredentials = JSON.parse(localStorage.getItem("rememberMe"));
+
+    if (savedCredentials) {
+        document.getElementById("email").value = savedCredentials.email;
+        document.getElementById("password").value = savedCredentials.password;
+
+        const checkboxIcon = document.querySelector('.checkbox-icon');
+        checkboxIcon.src = './assets/img/general/checked_button.svg';
+        document.querySelector('.checkbox-container').dataset.checked = "true";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadCredentials);

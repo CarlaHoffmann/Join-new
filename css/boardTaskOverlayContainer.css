@@ -1,0 +1,428 @@
+body {
+    font-family: "Inter";
+    background-color: #f1f1f1;
+}
+
+#taskOverlay.show {
+    animation: slide 0.65s ease forwards;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+#taskOverlay.hide #editTaskOverlay.hide {
+    animation: slideOut 0.65s ease forwards;
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.okBtnContainer {
+    display: flex;
+    justify-content: end;
+}
+
+.close {
+    display: flex;
+    justify-content: end;
+}
+
+.subtask-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.subtasks-box {
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+
+.check {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    cursor: pointer;
+    padding-left: 8px;
+    max-width: fit-content;
+}
+
+.check:hover {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.check div {
+    padding: 2px 4px;
+    transition: background-color 0.3s ease;
+}
+
+.subtask-checkbox-icon {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    margin: 4px;
+}
+
+.task-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-button-box {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-button {
+    width: 20px;
+    height: 20px;
+}
+
+.close-button-box:hover {
+    background-color: #D1D1D1;
+}
+
+.taskOverlay {
+    width: 525px;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 24px 48px 24px;
+    border-radius: 30px;
+    justify-content: space-between;
+    gap: 24px;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+::-webkit-scrollbar {
+    height: 10px;
+    width: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e7e7e7;
+    border-radius: 8px;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #D1D1D1;
+}
+
+.taskSelect {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskContainer {
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 4px 24px;
+    color: white;
+    font-size: 23px;
+    background-color: #1FD7C1;
+}
+
+.headline {
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73.2px;
+    word-wrap: break-word;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.datePriority {
+    width: 130px;
+    color: rgb(7, 79, 202);
+}
+
+.textColor {
+    color: #2A3647;
+
+}
+
+.task-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 0;
+}
+
+.task-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #2A3647;
+    min-width: 80px;
+}
+
+.info-value {
+    color: #4A4A4A;
+    font-size: 19px;
+}
+
+.priority-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.priority-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.assigned {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+    color: #ce6e1f;
+}
+
+.userContainer {
+    max-height: 90px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: black;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.userContainer div {
+    box-sizing: border-box;
+    /*padding: 7px 16px;*/
+}
+
+.user {
+    display: flex;
+}
+
+.userButton {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    border-radius: 50%;
+    color: white;
+    background-color: #1FD7C1;
+}
+
+.userName {
+    font-size: 19px;
+}
+
+.deleteEditBtnContainer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-right: 16px;
+}
+
+.assigned-contact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-initial {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    margin-right: 8px;
+}
+
+.deleteEditBtnContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-button {
+    width: 81px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.icon-button:hover {
+    transform: scale(1.1);
+}
+
+/* Vertikale Trennlinie */
+.vertical-line {
+    width: 20px;
+    height: 24px;
+    background-color: #d3d3d3;
+    margin: 0 10px;
+}
+
+.icon-text-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.icon-svg {
+    width: 24px;
+    height: 24px;
+}
+
+.icon-text-button:hover .icon-svg path {
+    stroke: #29ABE2;
+}
+
+.icon-text-button:hover .icon-text {
+    color: #29ABE2;
+}
+
+
+.vertical-line {
+    width: 1px;
+    height: 24px;
+    background-color: #d3d3d3;
+    margin: 0 10px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease-in, visibility 0.6s;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.custom-confirm-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--menuButtonDarkblue);
+    color: var(--white);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    z-index: 10000;
+    animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.custom-confirm-dialog p {
+    margin-bottom: 32px;
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
+.dialog-button {
+    font-weight: 700;
+    font-size: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: white;
+    color: black;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.dialog-button img.dialog-icon {
+    width: 17px;
+    height: 17px;
+    transition: filter 0.3s ease-in-out;
+}
+
+.dialog-button:hover {
+    background-color: #29ABE2;
+    color: white;
+    box-shadow: -1px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.dialog-button:hover img.dialog-icon {
+    filter: invert(1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0.3;
+        transform: translate(-50%, -160%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -45%);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    to {
+        opacity: 0.5;
+        transform: translate(-50%, -45%);
+    }
+}

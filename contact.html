@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+
+    <link rel="icon" type="image/svg+xml" href="./assets/img/general/logo_favicon.svg">
+    <link rel="stylesheet" href="./css/contact.css">
+    <link rel="stylesheet" href="./css/contact-add-edit-overlay.css">
+    <link rel="stylesheet" href="./css/contact-media.css">
+
+    <script src="./js/nav.js"></script>
+    <script src="./js/returnColor.js"></script>
+    <script src="./js/close_overlay.js"></script>
+    <script src="./js/contactFirebase.js"></script>
+    <script src="./js/contactOverlay.js"></script>
+</head>
+
+<body>
+    <div class="nav-bar" w3-include-html="nav.html"></div>
+
+    <div id="contactContent">
+        <!--contacts-->
+        <div id="contacts">
+            <button id="addContactButton"
+                onclick="toggleView('addContactBoxOverlay'); startEditOrAddAnimation('add')"><span>Add new
+                    contact</span><img src="./assets/img/contact/person_add.svg"></button>
+            <section id="contactList">
+            </section>
+        </div>
+        <!--contactView-->
+        <div id="contactView">
+            <div class="contactViewHeader">
+                <h2>Contacts</h2>
+                <img class="divider1" src="./assets/img/contact/divider.svg">
+                <p>Better with a Team</p>
+                <img class="divider2" src="./assets/img/contact/dividerOverlay.svg">
+            </div>
+
+            <div id="contactDetails"></div>
+        </div>
+    </div>
+
+    <!--contactDetailBox-->
+    <div id="contactDetailBox" class="hidden">
+        <div class="contactViewHeaderOverlay">
+            <div class="contactViewHeader">
+                <h2>Contacts</h2>
+                <img class="divider1" src="./assets/img/contact/divider.svg">
+                <p>Better with a Team</p>
+                <img class="divider2" src="./assets/img/contact/dividerOverlay.svg">
+            </div>
+
+            <div onclick="closeDetailsOverlay()" class="back"><img src="./assets/img/arrow-left-line.svg" alt=""></div>
+        </div>
+        <div id="contactDetailsOverlay"></div>
+
+        <div onclick="openControlMenu()" class="circle-edit-mobile-control">
+            <img src="./assets/img/contact/more_vert.svg" alt="More options">
+        </div>
+
+        <div id="contactDetailsOverlayMenu"></div>
+
+    </div>
+
+    <!--add contact box-->
+    <div onclick="closeOverlayOnOutsideClick(event, 'addContactBox', 'addContactBoxOverlay')" id="addContactBoxOverlay"
+        class="hidden">
+        <div id="addContactBox">
+            <div class="close-button-box" onclick="closeAddOverlay()">
+                <img src="./assets/img/contact/close.svg" class="desktop-only close-button">
+                <img src="./assets/img/contact/close-mobile.svg" class="mobile-only close-button">
+            </div>
+
+            <div id="addContactBoxHeader">
+                <img class="logo" src="./assets/img/contact/logo.svg">
+                <div class="contactHeaderText">
+                    <h2 id="addContactHeadline">Add Contact</h2>
+                    <p>Tasks are better with a team!</p>
+                    <img class="dividerOverlay" src="./assets/img/contact/dividerOverlay.svg">
+                </div>
+            </div>
+
+            <div class="addContactInfoOverlay" class="hidden">
+                <div class="imgBox">
+                    <img class="overlay-contact-img" src="./assets/img/contact/add-user.svg" alt="">
+                </div>
+                <form method="post" id="addContactForm" action="contact.html"
+                    onsubmit="event.preventDefault(); addContact()" onreset="resetErrors();">
+                    <div class="input-fields">
+                        <div>
+                            <div class="input-container">
+                                <input id="name" placeholder="Name" type="text" class="addField input-with-image">
+                                <img src="./assets/img/general/person.svg" alt="Person Icon" class="input-icon">
+                            </div>
+                            <span id="name-error-message" class="error-message">This field is required.</span>
+                        </div>
+                        <div>
+                            <div class="input-container">
+                                <input id="email" placeholder="Email" type="text" class="addField input-with-image">
+                                <img src="./assets/img/general/mail.svg" alt="Mail Icon" class="input-icon">
+                            </div>
+                            <span id="email-error-message" class="error-message">This field is required.</span>
+                        </div>
+                        <div>
+                            <div class="input-container">
+                                <input id="phone" placeholder="Phone" type="text" class="addField input-with-image phone"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <img src="./assets/img/contact/call.svg" alt="Phone Icon" class="input-icon">
+                            </div>
+                            <span id="phone-error-message" class="error-message">This field is required.</span>
+                        </div>
+                    </div>
+                    <div class="add-form-buttons">
+                        <button type="reset" class="clear-button form-button hover-button">
+                            Cancel
+                            <img class="icon-normal" src="./assets/img/task/iconoir_cancel.svg" alt="">
+                            <img class="icon-hover" src="./assets/img/task/iconoir_cancel_hover.svg" alt="">
+                        </button>
+                        <button type="submit" class="submit-button form-button hover-button">
+                            Create contact
+                            <img src="./assets/img/task/check.svg" alt="">
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!--edit contact box-->
+    <div onclick="closeOverlayOnOutsideClick(event, 'editContactBox', 'editContactBoxOverlay')"
+        id="editContactBoxOverlay" class="hidden">
+        <div id="editContactBox">
+            <div class="close-button-box" onclick="closeEditOverlay()">
+                <img src="./assets/img/contact/close.svg" class="desktop-only close-button">
+                <img src="./assets/img/contact/close-mobile.svg" class="mobile-only close-button">
+            </div>
+
+            <div id="editContactBoxHeader">
+                <img class="logo" src="./assets/img/contact/logo.svg">
+                <div class="contactHeaderText">
+                    <h2 id="editContactHeadline">Edit Contact</h2>
+                    <img class="dividerOverlay" src="./assets/img/contact/dividerOverlay.svg">
+                </div>
+            </div>
+
+            <div class="editContactInfoOverlay">
+                <div class="imgBox">
+                    <div id="changedImg" class="overlay-contact-img circleDetails"></div>
+                </div>
+
+                <form method="post" id="editContactForm" action="contact.html"
+                    onsubmit="event.preventDefault(); editContact('${editKey}');" onreset="resetErrors()">
+                    <div class="input-fields">
+                        <div>
+                            <div class="input-container">
+                                <input id="changedName" class="addField input-with-image" placeholder="Name"
+                                    type="text">
+                                <img src="./assets/img/general/person.png" alt="Person Icon" class="input-icon">
+                            </div>
+                            <span id="changedName-error-message" class="error-message">This field is required.</span>
+                        </div>
+                        <div>
+                            <div class="input-container">
+                                <input id="changedEmail" class="addField input-with-image" placeholder="Email"
+                                    type="text">
+                                <img src="./assets/img/general/mail.svg" alt="Mail Icon" class="input-icon">
+                            </div>
+                            <span id="changedEmail-error-message" class="error-message">This field is required.</span>
+                        </div>
+                        <div>
+                            <div class="input-container">
+                                <input id="changedPhone" class="addField input-with-image" placeholder="Phone"
+                                    type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <img src="./assets/img/contact/call.svg" alt="Phone Icon" class="input-icon">
+                            </div>
+                            <span id="changedPhone-error-message" class="error-message">This field is required.</span>
+                        </div>
+                    </div>
+
+                    <div class="edit-form-buttons">
+                        <button onclick="deleteContact(`${editKey}`); closeEditOverlay()" type="reset" class="clear-button form-button hover-button">
+                            Delete
+                        </button>
+                        <button type="submit" class="submit-button form-button hover-button">
+                            Save
+                            <img src="./assets/img/task/check.svg" alt="">
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="contact-added-overlay" class="contact-added-overlay hidden">
+        <div class="contact-added-banner">
+            Contact successfully created
+        </div>
+    </div>
+    <!--adding scripts-->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script>
+        w3.includeHTML();
+    </script>
+    <script src="js/contactTemplates.js"></script>
+    <script src="js/contact.js"></script>
+    <script src="js/contactEdited.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+@media(max-width: 1024px) {
+    .headerLogo {
+        top: 50px;
+        left: 50px;
+    }
+}
+
+@media (max-height: 900px), (max-width: 680px) {
+    .headerLogo {
+        top: 37px;
+        left: 38px;
+        width: 64px;
+        height: 78px;
+    }
+
+    .logIn-page {
+        min-height: 800px;
+        overflow-y: auto;
+    }
+
+    #signup-linking-desktop {
+        display: none;
+    }
+
+    #signup-linking-mobile {
+        display: flex;
+        position: relative;
+        top: 0px;
+    }
+
+    .signUp-page {
+        min-height: 800px;
+        overflow-y: auto;
+    }
+
+    .form-wrapper-signup {
+        margin-top: 72px;
+    }
+    
+    .login-footer {
+        position: relative;
+        top: 10px;
+    }
+}
+ 
+@media (max-width: 900px) {
+    .form-wrapper {
+        padding: 16px 16px;
+    }
+
+    .form-wrapper-signup {
+        padding: 16px 16px;
+      }    
+}
+
+@media(max-width: 680px) {
+    .headerLogo {
+        top: 37px;
+        left: 38px;
+        width: 64px;
+        height: 78px;
+    }
+
+    .form-container {
+        width: calc(100vw - 32px);
+    }
+
+    .form-wrapper {
+        width: calc(100vw - 32px);
+    }
+
+    .input-container {
+        box-sizing: border-box;
+        max-width: 402px;
+        width: calc(100vw - 64px);
+    }
+    
+    .accept_box {
+        height: 16px;
+    }
+
+    #login_button {
+        width: 100%;
+    }
+    
+    #signup-linking-desktop {
+        display: none;
+    }
+
+    #signup-linking-mobile {
+        display: flex;
+        position: relative;
+        bottom: 80px;
+    }
+}
+
+@media (max-width: 376px) {
+    .login-content {
+        margin-top: 72px;
+    }
+
+    .input-with-image {
+        width: 200px;
+    }
+
+    .logIn-btns {
+        flex-direction: column;
+        gap: 21px;
+        width: fit-content;
+      }
+}

@@ -1,0 +1,297 @@
+@media(max-width: 1440px) {
+
+    .addContactInfoOverlay,
+    .addContactInfoOverlay {
+        gap: 24px;
+    }
+}
+
+@media(max-width: 1330px) {
+
+    .addContactInfoOverlay,
+    .editContactInfoOverlay {
+        flex-direction: column;
+        padding: 0px 16px;
+    }
+
+    .input-fields {
+        flex-grow: 1;
+        width: 364px;
+    }
+
+    .input-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1220px) {
+    .contactHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 21px;
+    }
+}
+
+@media (max-width: 1195px) {
+    .contactViewHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .divider1 {
+        display: none;
+    }
+
+    .divider2 {
+        display: flex;
+    }
+}
+
+@media(max-width: 1060px) {
+
+    #addContactBox,
+    #editContactBox {
+        width: fit-content;
+    }
+}
+
+@media (max-width: 1024px) {
+    #contacts {
+        width: calc(100vw - 232px);
+        height: calc(100vh - 96px);
+    }
+
+    #contactView {
+        display: none;
+    }
+
+    .contactDetailBox {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .contactItemControls {
+        display: none;
+    }
+
+    #contactDetailsOverlay .contactHeader {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}
+
+@media(max-width: 880px) {
+    .desktop-only {
+        display: none;
+    }
+
+    #addContactForm {
+        align-items: center;
+    }
+
+    .mobile-only {
+        display: flex;
+    }
+
+    #addContactBox,
+    #editContactBox {
+        width: 396px;
+        max-height: 826px;
+        height: calc(100vh - 160px);
+        flex-direction: column;
+    }
+
+    #editContactBoxHeader,
+    #addContactBoxHeader {
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 0px;
+        width: 100%;
+        height: 352px;
+        padding: 66px 24px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    #editContactHeadline,
+    #addContactHeadline {
+        font-size: 47px;
+    }
+
+    .contactHeaderText p {
+        font-size: 20px;
+    }
+
+    .addContactInfoOverlay,
+    .editContactInfoOverlay {
+        position: relative;
+        top: -56px;
+    }
+
+    .imgBox {
+        width: 100%;
+    }
+
+    #editContactBox form {
+        border: none;
+    }
+
+    .add-form-buttons .clear-button {
+        display: none;
+    }
+
+    .edit-form-buttons {
+        gap: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .close-button-box {
+        top: 24px;
+        right: 16px;
+    }
+
+    .close-button-box:hover {
+        background: none;
+    }
+}
+
+@media (max-width: 680px) {
+    .contactViewHeader h2 {
+        font-size: 47px;
+    }
+
+    .contactViewHeader p {
+        font-size: 20px;
+    }
+
+    .contactHeader .circleDetails {
+        width: 80px;
+        height: 80px;
+    }
+
+    .contactHeader .circleDetails {
+        font-size: 27px;
+    }
+
+    .contactHeader .nameDetails p {
+        font-size: 36px;
+    }
+
+    #contactContent {
+        left: 0;
+        bottom: 80px;
+        width: 100vw;
+        height: calc(100vh - 160px);
+        display: flex;
+        justify-content: center;
+    }
+
+    #contacts {
+        width: 100%;
+        height: 100%;
+    }
+
+    .capital-letter-box {
+        width: 90%;
+    }
+
+    .contact {
+        width: 90%;
+    }
+
+    .contactInformation {
+        overflow-x: hidden;
+    }
+
+    #addContactButton {
+        background: #2A3647;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease;
+        position: absolute;
+        bottom: 15px;
+        right: 25px;
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    #addContactButton span {
+        display: none;
+    }
+
+    #contactDetailBox {
+        width: 100vw;
+        height: calc(100vh - 160px);
+        top: 80px;
+        padding-top: 20px;
+    }
+
+    #editContactBoxOverlay.show,
+    #addContactBoxOverlay.show {
+        display: flex;
+        animation: slide 0.65s ease forwards;
+    }
+
+    @keyframes slide {
+        from {
+            top: 100vh;
+        }
+
+        to {
+            top: 0;
+        }
+    }
+}
+
+@media(max-width: 420px) {
+
+    #addContactBox,
+    #editContactBox {
+        width: fit-content;
+    }
+
+    .input-fields {
+        width: 280px;
+    }
+}
+
+@media (max-width: 380px) {
+    .circle {
+        padding: 10px;
+    }
+
+    #contactDetailsOverlay .contactHeader {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media(max-height: 844px) and (max-width: 880px) {
+
+    #addContactBox,
+    #editContactBox {
+        width: 396px;
+        /* height: calc(100vh - 160px); */
+    }
+
+    #editContactBoxHeader,
+    #addContactBoxHeader {
+        height: 242px;
+        padding: 30px 24px;
+    }
+
+    .input-fields {
+        height: 140px;
+        overflow-y: scroll;
+    }
+}

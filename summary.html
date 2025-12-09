@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+
+    <link rel="icon" type="image/svg+xml" href="./assets/img/general/logo_favicon.svg">
+    <link rel="stylesheet" href="./css/summary.css">
+    <link rel="stylesheet" href="./css/summaryMedia.css">
+
+    <script src="./js/summary_firebase.js"></script>
+    <script src="./js/summary.js"></script>
+    <script src="./js/nav.js"></script>
+</head>
+
+<body>
+    <div class="nav-bar" w3-include-html="nav.html"></div>
+    
+    <div id="greeting-overlay" class="hidden">
+        <div class="greeting"></div>
+        <div class="greet-name"></div>
+    </div>
+
+    <div class="outer-box">
+        <div id="summary-page">
+            <div id="header">
+                <div id="header-box">
+                    <div><span id="title">Join 360</span></div>
+                    <div class="desktop"><img src="./assets/img/summary/vector_header.svg" alt=""></div>
+                    <div><span id="headline">Key Metrics at a Glance</span></div>
+                </div>
+                <div class="mobile"><img src="./assets/img/summary/vector_header_mobile.svg" alt=""></div>
+            </div>
+
+            <div id="page-content">
+                <div id="summary-content">
+                    <div id="do-done-box" class="box-row">
+                        <div onclick="goToBoard()" class="box symbol-box todo">
+                            <div class="symbol">
+                                <img class="desktop hover-hide" src="./assets/img/summary/todo_pen.svg" alt="">
+                                <img class="desktop hover-show" src="./assets/img/summary/todo_pen_hover.svg" alt="">
+                                <img class="mobile hover-hide" src="./assets/img/summary/todo_pen_mobile.svg" alt="">
+                                <img class="mobile hover-show" src="./assets/img/summary/todo_pen_mobile_hover.svg"
+                                    alt="">
+                            </div>
+                            <div class="info">
+                                <div id="todo-counter" class="number">0</div>
+                                <div class="description no-wrap">To-do</div>
+                            </div>
+                        </div>
+                        <div onclick="goToBoard()" class="box symbol-box todo">
+                            <div class="symbol">
+                                <img class="desktop hover-hide" src="./assets/img/summary/done_check.svg" alt="">
+                                <img class="desktop hover-show" src="./assets/img/summary/done_check_hover.svg" alt="">
+                                <img class="mobile hover-hide" src="./assets/img/summary/done_check_mobile.svg" alt="">
+                                <img class="mobile hover-show" src="./assets/img/summary/done_check_mobile_hover.svg"
+                                    alt="">
+                            </div>
+                            <div class="info">
+                                <div id="done-counter" class="number">0</div>
+                                <div class="description">Done</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-row">
+                        <div onclick="goToBoard()" id="deadline-box" class="box">
+                            <div class="symbol-box-prio">
+                                <div id="deadline-symbol">
+                                    <img id="deadline-image" alt="">
+                                </div>
+                                <div class="info">
+                                    <div id="deadline-counter" class="number">1</div>
+                                    <div id="deadline-prio" class="deadline-info">Urgent</div>
+                                </div>
+                            </div>
+                            <div>
+                                <img id="deadline-divider" class="desktop"
+                                    src="./assets/img/summary/summary_divider.svg" alt="">
+                                <img id="deadline-divider-mobile" class="mobile"
+                                    src="./assets/img/summary/summary_divider_mobile.svg" alt="">
+                            </div>
+
+                            <div id="date-info">
+                                <div id="deadline-date" class="deadline-date"></div>
+                                <div class="deadline-info">Upcoming Deadline</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sum-up-box" class="box-row">
+                        <div onclick="goToBoard()" class="box sum-up">
+                            <div id="tasks-counter" class="number">0</div>
+                            <div class="description">Tasks in Board</div>
+                        </div>
+                        <div onclick="goToBoard()" class="box sum-up">
+                            <div id="in-progress-counter" class="number">0</div>
+                            <div class="description">Tasks in Progress</div>
+                        </div>
+                        <div onclick="goToBoard()" class="box sum-up">
+                            <div id="feedback-awaiting-counter" class="number">0</div>
+                            <div class="description">Awaiting Feedback</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="greeting-box">
+                    <div class="greeting">Good morning,</div>
+                    <div class="greet-name"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script>
+        w3.includeHTML();
+    </script>
+</body>
+
+</html>
