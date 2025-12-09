@@ -1,5 +1,3 @@
-let addContactBoxOverlay = document.getElementById('addContactBoxOverlay');
-
 /**
  * Displays the contact detail overlay by adding a specific CSS class to the overlay element.
  */

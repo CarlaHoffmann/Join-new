@@ -25,10 +25,12 @@
         <!--contacts-->
         <div id="contacts">
             <button id="addContactButton"
-                onclick="toggleView('addContactBoxOverlay'); startEditOrAddAnimation('add')"><span>Add new
-                    contact</span><img src="./assets/img/contact/person_add.svg"></button>
-            <section id="contactList">
-            </section>
+                onclick="toggleView('addContactBoxOverlay'); startEditOrAddAnimation('add')">
+                <span>Add new contact</span>
+                <img src="./assets/img/contact/person_add.svg">
+            </button>
+            
+            <section id="contactList"> </section>
         </div>
         <!--contactView-->
         <div id="contactView">
@@ -152,7 +154,7 @@
                 </div>
 
                 <form method="post" id="editContactForm" action="contact.html"
-                    onsubmit="event.preventDefault(); editContact('${editKey}');" onreset="resetErrors()">
+                    onsubmit="event.preventDefault(); handleEditSubmit();" onreset="resetErrors()">
                     <div class="input-fields">
                         <div>
                             <div class="input-container">
@@ -181,7 +183,7 @@
                     </div>
 
                     <div class="edit-form-buttons">
-                        <button onclick="deleteContact(`${editKey}`); closeEditOverlay()" type="reset" class="clear-button form-button hover-button">
+                        <button onclick="handleDeleteClick()" type="reset" class="clear-button form-button hover-button">
                             Delete
                         </button>
                         <button type="submit" class="submit-button form-button hover-button">

@@ -2,6 +2,7 @@
  * @type {string}
  * @description basic url to firebase
  */
+const base_url = 'https://join-eaf29-default-rtdb.europe-west1.firebasedatabase.app/';
 
 /**
  * Sorts an array of users alphabetically by their name property.
@@ -25,8 +26,6 @@ function sortUsers(usersArray){
     });
 }
 
-const base_url = 'https://join-eaf29-default-rtdb.europe-west1.firebasedatabase.app/';
-
 /**
  * Handles the addition of a new contact by validating input, saving data, and updating the UI.
  * @returns {Promise<void>}
@@ -37,7 +36,7 @@ async function addContact() {
     const color = returnColor();
     const uploadData = { phone, color, mail, name, password: 'pw' };
 
-    if (isValidContactInput(name, mail, phone)) {
+    if (isValidContactInput(name, mail, phone) && isValidEmail(mail)) {
         await createNewContact('/users', uploadData);
         handleSuccessfulContactAddition(fields);
     } else {
@@ -60,7 +59,6 @@ async function createNewContact(endpoint, data) {
     });
 }
 
-
 /**
  * Asynchronously loads contact data from a Firebase database, processes the data,
  * and populates the contact list with users' information, sorted alphabetically.
@@ -68,14 +66,17 @@ async function createNewContact(endpoint, data) {
  * 
  * @async
  */
-async function loadContactData(){
-    let response = await fetch(base_url + ".json");
-    let responseToJson = await response.json();
-    let users = 
-    await responseToJson.users;
+async function loadContactData() {
+    const response = await fetch(`${base_url}users.json`);
+    const users = await response.json();
+    if (!users) {
+        usersArray = [];
+        contactList.innerHTML = "";
+        return;
+    }
     usersArray = Object.values(users);
-    let keys = Object.keys(users);
-    for(let i = 0; i < usersArray.length; i++){
+    const keys = Object.keys(users);
+    for (let i = 0; i < usersArray.length; i++) {
         usersArray[i].key = keys[i];
     }
     sortUsers(usersArray);

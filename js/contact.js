@@ -9,18 +9,6 @@ let editKey = null;
  */
 let contactList = document.getElementById('contactList');
 let contactDetails = document.getElementById('contactDetails');
-//let addContactButton = document.getElementById('addContactButton');
-//let addContactBoxOverlay = document.getElementById('addContactBoxOverlay');
-
-/**
- * Clears the input fields in the "Add Contact" form.
- * Resets the values of the name, email, and phone input elements to an empty string.
- */
-function clearAddContactFields(){
-    document.getElementById('name').value = "";
-    document.getElementById('email').value = "";
-    document.getElementById('phone').value = "";
-}
 
 /**
  * Retrieves the input fields for contact data.
@@ -38,11 +26,19 @@ function getContactInputFields() {
  * @returns {boolean} - True if the input is valid, otherwise false.
  */
 function isValidContactInput(name, mail, phone) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return name && mail && phone && emailRegex.test(mail);
+    return name && mail && phone;
 }
 
-
+/**
+ * Validates an email address using a basic regex pattern.
+ * 
+ * @param {string} mail - Email address to validate
+ * @returns {boolean} True if email format is valid, false otherwise
+ */
+function isValidEmail(mail) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(mail);
+}
 
 /**
  * Handles UI updates and resets after a successful contact addition.
@@ -53,7 +49,10 @@ function handleSuccessfulContactAddition(fields) {
     clearAddContactFields(fields);
     showContactAddedOverlay();
     loadContactData();
-    fields.forEach(el => hideErrorMessage(el));
+    fields.forEach(el => {
+        const errorElement = document.getElementById(`${el.id}-error-message`);
+        if (errorElement) hideErrorMessage(errorElement);
+    });
 }
 
 /**
@@ -101,49 +100,6 @@ function hideErrorMessage(errorElement) {
     errorElement.style.display = 'none';
 }
 
-
-/**
- * Displays error messages for invalid form fields.
- * 
- * @function showErrorMessages
- * @param {HTMLElement[]} fields - Array of input field elements to check.
- * @param {boolean} notEmpty - Flag indicating if all fields are non-empty.
- * @param {boolean} validEmail - Flag indicating if the email is valid.
- * 
- * @description
- * This function shows error messages for empty fields and invalid email format.
- * It displays error messages next to the corresponding input fields.
- * 
- * @example
- * // Call the function
- * showErrorMessages([nameInput, emailInput, phoneInput], false, true);
- */
-
-function showErrorMessages(fields, notEmpty, validEmail) {
-    if (!notEmpty) {
-        fields.forEach(element => {
-            if (!element.value) {
-                document.getElementById(`${element.id}-error-message`).style.display = "flex";
-            }
-        });
-    }
-    if (!validEmail) {
-        const emailError = document.getElementById("email-error-message");
-        emailError.innerHTML = "Wrong Email Format";
-        emailError.style.display = "flex";
-    }
-    document.getElementById("email-error-message").style.display = validEmail ? "none" : "flex";
-}
-
-/**
- * Resets error messages for input fields.
- * 
- * @param {HTMLElement[]} fields - Array of input elements.
- */
-function resetErrorMessages(fields) {
-    fields.forEach(f => document.getElementById(`${f.id}-error-message`).style.display = "none");
-}
-
 /**
  * Extracts the initials from a given name.
  * If the name consists of a single part, returns the first letter of that part.
@@ -181,8 +137,6 @@ function showContactDetails(key, name, email, phone, color) {
     selected && selected.classList.add('selected');
 }
 
-
-
 /**
  * Populates the edit form with user data.
  * @param {Object} user - The user data to populate the form with.
@@ -196,7 +150,6 @@ function populateEditForm(user) {
     document.getElementById('changedEmail').value = user.mail;
     document.getElementById('changedPhone').value = user.phone;
 }
-
 
 /**
  * Refreshes the UI after editing a contact.
@@ -288,8 +241,6 @@ function hideError(errorElement) {
     errorElement.style.display = "none";
 }
 
-
-
 /**
  * Toggles the visibility of the control menu and the active state of the control circle.
  * It adds/removes the 'hidden' class to the control menu and the 'active' class to 
@@ -352,6 +303,29 @@ function getEditedContactInput() {
 }
 
 /**
+ * Handles form submission for editing a contact.
+ * Guards against missing editKey and calls editContact().
+ * 
+ * @returns {Promise<void>}
+ */
+function handleEditSubmit() {
+  if (!editKey) return;  
+  editContact(editKey);
+}
+
+/**
+ * Handles delete button click for a contact.
+ * Guards against missing editKey, deletes contact and closes overlay.
+ * 
+ * @returns {Promise<void>}
+ */
+function handleDeleteClick() {
+  if (!editKey) return;
+  deleteContact(editKey);
+  closeEditOverlay();
+}
+
+/**
  * Closes the edit contact overlay by adding the 'hidden' class to the edit contact box element.
  */
 function closeEditOverlay() {
@@ -369,7 +343,6 @@ function closeAddOverlay() {
     resetErrors();
 }
 
-
 /**
  * Handles click events outside the control menu and circle control.
  * If the clicked element is not inside the control menu or the circle control,
@@ -385,16 +358,12 @@ function handleClickOutside(event) {
     }
 }
 
-
-
-
-
 /**
  * hides error messages
  */
 function resetErrors() {
     const error = document.getElementsByClassName('error-message');
-    for (i = 0; i < error.length; i++) {
+    for (let i = 0; i < error.length; i++) {
         error[i].style.display = 'none';
     }
 }
