@@ -63,7 +63,7 @@ function returnContactDetailsTemplate(key, name, email, phone, color){
  * @param {string} key - The unique identifier for the contact.
  * @returns {string} The HTML string representing the options menu for the contact.
  */
-function returncontactDetailsMenuTemplate(key) {
+function returnContactDetailsMenuTemplate(key) {
     return `
         <div id="options-menu" class="options-menu hidden">
             <!-- Edit Option -->

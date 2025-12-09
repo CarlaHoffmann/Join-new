@@ -81,6 +81,14 @@ async function loadContactData() {
     }
     sortUsers(usersArray);
     contactList.innerHTML = "";
+    getContactData();
+}
+
+function getContactData() {
+    if (!usersArray?.length || !contactList) {
+        console.warn('usersArray oder contactList fehlt');
+        return;
+    }
     returnContactList();
 }
 
@@ -101,7 +109,7 @@ async function deleteContact(key) {
 
         clearContactDetails();
         closeDetailsOverlay();
-        await refreshContactAndTaskData();
+        await refreshContactData();
     } catch (error) {
         console.error("Error deleting contact:", error);
     }
@@ -139,9 +147,8 @@ function clearContactDetails() {
  * Refreshes the contact list and tasks in the UI.
  * @returns {Promise<void>}
  */
-async function refreshContactAndTaskData() {
+async function refreshContactData() {
     await loadContactData();
-    await loadTasks();
 }
 
 /**

@@ -130,7 +130,7 @@ function showContactDetails(key, name, email, phone, color) {
     const [details, overlay, menu] = ['contactDetails', 'contactDetailsOverlay', 'contactDetailsOverlayMenu'].map(id => document.getElementById(id));
     const template = returnContactDetailsTemplate(key, name, email, phone, color);
     details.innerHTML = overlay.innerHTML = template;
-    menu.innerHTML = returncontactDetailsMenuTemplate(key);
+    menu.innerHTML = returnContactDetailsMenuTemplate(key);
     details.classList.contains('show') ? (details.classList.remove('show'), requestAnimationFrame(() => details.classList.add('show'))) : details.classList.add('show');
     document.querySelectorAll('.contact').forEach(c => c.classList.remove('selected'));
     const selected = document.querySelector(`.contact[onclick*="'${key}'"]`);
